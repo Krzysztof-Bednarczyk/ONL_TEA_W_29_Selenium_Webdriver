@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import static utils.EmailFaker.createRandomEmail;
+
 public class ByClassname {
 
     public static void main(String[] args) {
@@ -18,7 +20,7 @@ public class ByClassname {
         WebElement signInButton = driver.findElement(By.className("user_login"));
         signInButton.click();
         WebElement emailInput = driver.findElement(By.className("account_input"));
-        emailInput.sendKeys("test@test.com");
+        emailInput.sendKeys(createRandomEmail());
         WebElement createAccountButton = driver.findElement(By.name("SubmitCreate"));
         createAccountButton.submit();
 
