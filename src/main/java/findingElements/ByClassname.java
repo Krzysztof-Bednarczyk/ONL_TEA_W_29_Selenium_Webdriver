@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import static utils.EmailFaker.createRandomEmail;
+import static utils.DataFaker.createRandomEmail;
 
 public class ByClassname {
 
