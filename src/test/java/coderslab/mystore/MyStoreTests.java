@@ -54,6 +54,20 @@ class MyStoreTests {
         Assertions.assertThat(actualAccountName).as("Account name").isEqualTo(expectedAccountName);
     }
 
+    @Test
+    void loginUserPAgeFactoryTest(){
+        mystore.pagefactory.HomePage homePage = new mystore.pagefactory.HomePage(driver);
+        homePage.openPage();
+        mystore.pagefactory.LoginPage loginPage = homePage.clickSingIn();
+        mystore.pagefactory.AccountPage accountPage = loginPage.loginUser(EMAIL, PASSWORD);
+        String expectedText = "INFORMATION";
+        String actualText = accountPage.getIdentityLinkText();
+        Assertions.assertThat(actualText).contains(expectedText); // veryfikacja tekstu
+        String expectedAccountName = "Automated Tester";
+        String actualAccountName = accountPage.getAccountNameText();
+        Assertions.assertThat(actualAccountName).as("Account name").isEqualTo(expectedAccountName);
+    }
+
     @AfterEach
     void tearDown(){
         driver.quit();
