@@ -1,6 +1,8 @@
 package coderslab.mystore;
 
+import mystore.pageobjects.AccountPage;
 import mystore.pageobjects.HomePage;
+import mystore.pageobjects.LoginPage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +17,8 @@ import static utils.DataFaker.createRandomEmail;
 class MyStoreTests {
 
     private WebDriver driver;
+    private final String EMAIL = "michal.dobrzycki@coderslab.pl";
+    private final String PASSWORD = "CodersLab";
 
     @BeforeEach
     void setUp(){
@@ -38,7 +42,16 @@ class MyStoreTests {
 
     @Test
     void loginUserWithValidCredentials(){
-
+        HomePage homePage = new HomePage(driver);
+        homePage.openPage();
+        LoginPage loginPage = homePage.clickSignIn(); // new LoginPage(driver); - Zwracamy obiekt nowej strony
+        AccountPage accountPage = loginPage.loginUser(EMAIL, PASSWORD); // new AccountPage(driver); - Zwracamy obiekt nowej strony
+        String expectedText = "INFORMATION";
+        String actualText = accountPage.getIdentityLinkText();
+        Assertions.assertThat(actualText).contains(expectedText); // veryfikacja tekstu
+        String expectedAccountName = "Automated Tester";
+        String actualAccountName = accountPage.getAccountNameText();
+        Assertions.assertThat(actualAccountName).as("Account name").isEqualTo(expectedAccountName);
     }
 
     @AfterEach

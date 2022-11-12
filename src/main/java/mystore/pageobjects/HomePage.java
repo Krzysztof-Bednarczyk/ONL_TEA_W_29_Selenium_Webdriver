@@ -32,8 +32,9 @@ public class HomePage {
         return alertString.getText();
     }
 
-    public void clickSignIn(){
+    public LoginPage clickSignIn(){
         WebElement signInLink = driver.findElement(By.cssSelector("a[title='Log in to your customer account']"));
         signInLink.click();
+        return new LoginPage(driver); // Zwracamy obiekt nowej strony
     }
 }
