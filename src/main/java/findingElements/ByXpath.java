@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import static utils.DataFaker.*;
 
@@ -16,7 +16,7 @@ public class ByXpath {
                 "src/main/resources/drivers/chromedriver");
 
         WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS) ;
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         driver.get("https://hotel-testlab.coderslab.pl/en/");
         WebElement signInButton = driver.findElement(By.className("user_login"));
