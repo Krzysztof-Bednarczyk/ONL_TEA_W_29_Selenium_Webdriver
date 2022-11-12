@@ -1,6 +1,8 @@
 package coderslab.examples;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,14 +15,20 @@ import static utils.DataFaker.*;
 
 class MyFirstJUnitTest {
 
-    @Test
-    void registerUserTest(){
+    WebDriver driver;
+
+    @BeforeEach
+    void setUp() {
         System.setProperty("webdriver.chrome.driver",
                 "src/main/resources/drivers/chromedriver");
 
-        WebDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+    }
+
+    @Test
+    void registerUserTest() {
         driver.get("https://hotel-testlab.coderslab.pl/en/");
         WebElement signInButton = driver.findElement(By.className("user_login"));
         signInButton.click();
@@ -28,7 +36,6 @@ class MyFirstJUnitTest {
         emailInput.sendKeys(createRandomEmail());
         WebElement createAccountButton = driver.findElement(By.name("SubmitCreate"));
         createAccountButton.submit();
-
 
         // Adding Xpath code
 
@@ -52,7 +59,10 @@ class MyFirstJUnitTest {
 
         Assertions.assertTrue(myPersonalInfo.isDisplayed());
         Assertions.assertTrue(myAdresses.isDisplayed());
+    }
 
+    @AfterEach
+    void tearDown() {
         driver.quit();
     }
 }
