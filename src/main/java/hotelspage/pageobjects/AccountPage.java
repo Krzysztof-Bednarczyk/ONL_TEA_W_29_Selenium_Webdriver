@@ -22,4 +22,9 @@ public class AccountPage {
         homeLogo.click();
         return new HomePage(driver);
     }
+    public AddressesPage goToMyAddresses(){
+        WebElement myAddresses = driver.findElement(By.cssSelector("a[title=\"Addresses\"]"));
+        myAddresses.click();
+        return new AddressesPage(driver);
+    }
 }

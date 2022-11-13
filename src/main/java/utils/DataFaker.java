@@ -28,4 +28,20 @@ public class DataFaker {
         return String.format("PAss%s%s", faker.dragonBall().character(), randomNumber);
     }
 
+    public static String createRandomAddress(){
+        return faker.address().fullAddress();
+    }
+
+    public static String createRandomZip(){
+        return faker.address().zipCode();
+    }
+
+    public static String createRandomCity(){
+        return faker.address().cityName();
+    }
+
+    public static String createRandomPhoneNumnber(){
+        return faker.phoneNumber().phoneNumber();
+    }
+
 }
