@@ -1,9 +1,6 @@
 package coderslab.cucumber;
 
-import hotelspage.pageobjects.AccountPage;
-import hotelspage.pageobjects.AuthenticationPage;
-import hotelspage.pageobjects.HomePage;
-import hotelspage.pageobjects.RegisterPage;
+import hotelspage.pageobjects.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -13,16 +10,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
+import java.time.LocalDate;
 
 import static utils.DataFaker.*;
 
 public class RegisterUserSteps {
 
     private WebDriver driver;
+    private final String EMAIL = "johnybravo223@test.com";
+    private final String PASSWORD = "abcd1234";
     private HomePage homePage;
     private AuthenticationPage authenticationPage;
     private RegisterPage registerPage;
     private AccountPage accountPage;
+
+    private SearchResultsPage searchResultsPage;
 
     @Given("an open browser with homePage")
     public void openBrowserOnHomePage(){
@@ -61,5 +63,27 @@ public class RegisterUserSteps {
     @And("browser is closed")
     public void closeBrowser(){
         driver.quit();
+    }
+
+    @And("user signin")
+    public void userSignIn(){
+        authenticationPage = homePage.clickSingIn();
+        accountPage = authenticationPage.signInUser(EMAIL, PASSWORD);
+    }
+
+    @And("go back to homePge")
+    public void goBackToHomePage(){
+        homePage = accountPage.clickHomeLogo();
+    }
+
+    @When("search for hotel")
+    public void searchForHotel(){
+        searchResultsPage = homePage.searchHotel("Warszawa", LocalDate.now().toString(), LocalDate.now().plusDays(5).toString());
+    }
+
+    @Then("search page is displayed")
+    public void displaySearchPage(){
+        boolean isExpectedElementDisplayed = searchResultsPage.isSearchRoomsDisplayed();
+        Assertions.assertThat(isExpectedElementDisplayed).as("Serarch Rooms").isTrue();
     }
 }
