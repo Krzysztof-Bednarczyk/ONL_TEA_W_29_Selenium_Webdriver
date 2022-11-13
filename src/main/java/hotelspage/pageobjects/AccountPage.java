@@ -16,4 +16,10 @@ public class AccountPage {
         WebElement alert = driver.findElement(By.className("alert"));
         return alert.getText();
     }
+
+    public HomePage clickHomeLogo(){
+        WebElement homeLogo = driver.findElement(By.id("header_logo"));
+        homeLogo.click();
+        return new HomePage(driver);
+    }
 }
