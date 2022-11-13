@@ -43,14 +43,14 @@ public class RegisterUserSteps {
         authenticationPage = homePage.clickSingIn();
     }
 
-    @When("create account")
-    public void createAccount(){
-        registerPage = authenticationPage.createAccount(createRandomEmail());
+    @When("^create account with (.*)")
+    public void createAccount(String email){
+        registerPage = authenticationPage.createAccount(email);
     }
 
-    @And("fill out registration form")
-    public void fillForm(){
-        accountPage = registerPage.registerUser(createRandomFirstName(), createRandomLastName(), createRandomPassword());
+    @And("fill out registration form with (.*) and (.*) and (.*)$")
+    public void fillForm(String firstName, String lastName, String password){
+        accountPage = registerPage.registerUser(firstName, lastName, password);
     }
 
     @Then("user is successfully created")
