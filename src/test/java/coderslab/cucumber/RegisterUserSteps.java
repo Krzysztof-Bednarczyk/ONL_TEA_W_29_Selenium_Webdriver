@@ -1,6 +1,8 @@
 package coderslab.cucumber;
 
 import hotelspage.pageobjects.*;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -26,14 +28,18 @@ public class RegisterUserSteps {
 
     private SearchResultsPage searchResultsPage;
 
-    @Given("an open browser with homePage")
-    public void openBrowserOnHomePage(){
+    @Before
+    public void setUp(){
         System.setProperty("webdriver.chrome.driver",
                 "src/main/resources/drivers/chromedriver");
 
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+    }
+
+    @Given("an open browser with homePage")
+    public void openBrowserOnHomePage(){
         homePage = new HomePage(driver);
         homePage.openPage();
     }
@@ -60,7 +66,7 @@ public class RegisterUserSteps {
         Assertions.assertThat(alertText).isEqualTo(expectedMessage);
     }
 
-    @And("browser is closed")
+    @After
     public void closeBrowser(){
         driver.quit();
     }
